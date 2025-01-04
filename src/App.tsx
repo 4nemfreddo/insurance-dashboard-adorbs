@@ -17,10 +17,16 @@ const App = () => (
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Index />} />
-          <Route path="/policies" element={<Navigate to="/" replace />} />
+          <Route path="/underwriting" element={<Navigate to="/" replace />} />
           <Route path="/claims" element={<Navigate to="/" replace />} />
           <Route path="/customers" element={<Navigate to="/" replace />} />
+          <Route path="/policies" element={<Navigate to="/" replace />} />
+          <Route path="/payments" element={<Navigate to="/" replace />} />
           <Route path="/reports" element={<Navigate to="/" replace />} />
+          <Route path="/company" element={<Navigate to="/" replace />} />
+          <Route path="/knowledge" element={<Navigate to="/" replace />} />
+          <Route path="/support" element={<Navigate to="/" replace />} />
+          <Route path="/settings" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
