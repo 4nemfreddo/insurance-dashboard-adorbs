@@ -13,9 +13,9 @@ import {
 
 const menuItems = [
   { icon: Home, label: "Dashboard", path: "/" },
-  { icon: FileText, label: "Policies", path: "/policies" },
-  { icon: ClipboardList, label: "Claims", path: "/claims" },
-  { icon: Users, label: "Customers", path: "/customers" },
+  { icon: FileText, label: "Portfolio", path: "/portfolio" },
+  { icon: ClipboardList, label: "Underwriting", path: "/underwriting" },
+  { icon: Users, label: "Claims", path: "/claims" },
   { icon: BarChart2, label: "Reports", path: "/reports" },
 ];
 
@@ -26,17 +26,17 @@ export const DashboardSidebar = () => {
     <Sidebar>
       <SidebarContent>
         <div className="p-4 mb-4">
-          <h1 className="text-xl font-bold text-primary">InsureTech</h1>
+          <h1 className="text-xl font-bold text-primary">Monarch Insurance</h1>
         </div>
         <SidebarGroup>
-          <SidebarGroupLabel>Menu</SidebarGroupLabel>
+          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.label}>
                   <SidebarMenuButton
                     asChild
-                    className={location.pathname === item.path ? "bg-secondary/20" : ""}
+                    className={location.pathname === item.path ? "bg-primary/10" : ""}
                   >
                     <Link to={item.path} className="flex items-center gap-3">
                       <item.icon className="h-4 w-4" />
