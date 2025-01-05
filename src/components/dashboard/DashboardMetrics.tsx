@@ -1,44 +1,113 @@
+import { ArrowUpRight, Users, FileText, RefreshCw, Clock, DollarSign } from "lucide-react";
 import { MetricCard } from "@/components/MetricCard";
-import { DollarSign, ShieldCheck, AlertTriangle, TrendingUp, Coins } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export const DashboardMetrics = () => {
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-      <MetricCard
-        title="Total Premium"
-        value="Ksh. 177,918.00"
-        icon={DollarSign}
-        trend={{ value: 12.5, isPositive: true }}
-        className="bg-blue-50"
-      />
-      <MetricCard
-        title="Active Policies"
-        value="245"
-        icon={ShieldCheck}
-        trend={{ value: 8.2, isPositive: true }}
-        className="bg-green-50"
-      />
-      <MetricCard
-        title="Claims Ratio"
-        value="32.5%"
-        icon={AlertTriangle}
-        trend={{ value: 2.1, isPositive: false }}
-        className="bg-orange-50"
-      />
-      <MetricCard
-        title="Customer Growth"
-        value="+15%"
-        icon={TrendingUp}
-        trend={{ value: 15, isPositive: true }}
-        className="bg-purple-50"
-      />
-      <MetricCard
-        title="Total Commission"
-        value="Ksh. 25,430.00"
-        icon={Coins}
-        trend={{ value: 10.2, isPositive: true }}
-        className="bg-indigo-50"
-      />
-    </div>
+    <TooltipProvider>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="transition-transform hover:scale-105">
+              <MetricCard
+                title="Pending Applications"
+                value="24"
+                icon={Clock}
+                trend={{ value: 12, isPositive: true }}
+                className="hover:shadow-lg transition-shadow"
+              />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Number of insurance applications awaiting review</p>
+          </TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="transition-transform hover:scale-105">
+              <MetricCard
+                title="Active Policies"
+                value="1,234"
+                icon={FileText}
+                trend={{ value: 8, isPositive: true }}
+                className="hover:shadow-lg transition-shadow"
+              />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Total number of active insurance policies</p>
+          </TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="transition-transform hover:scale-105">
+              <MetricCard
+                title="Upcoming Renewals"
+                value="45"
+                icon={RefreshCw}
+                trend={{ value: 5, isPositive: false }}
+                className="hover:shadow-lg transition-shadow"
+              />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Policies due for renewal in the next 30 days</p>
+          </TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="transition-transform hover:scale-105">
+              <MetricCard
+                title="Total Clients"
+                value="892"
+                icon={Users}
+                trend={{ value: 15, isPositive: true }}
+                className="hover:shadow-lg transition-shadow"
+              />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Total number of active insurance clients</p>
+          </TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="transition-transform hover:scale-105">
+              <MetricCard
+                title="Total Commission"
+                value="KES 2.4M"
+                icon={DollarSign}
+                trend={{ value: 23, isPositive: true }}
+                className="hover:shadow-lg transition-shadow"
+              />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Total commission earned this month</p>
+          </TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="transition-transform hover:scale-105">
+              <MetricCard
+                title="Monthly Growth"
+                value="+18%"
+                icon={ArrowUpRight}
+                trend={{ value: 18, isPositive: true }}
+                className="hover:shadow-lg transition-shadow"
+              />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Month-over-month business growth rate</p>
+          </TooltipContent>
+        </Tooltip>
+      </div>
+    </TooltipProvider>
   );
 };
