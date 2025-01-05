@@ -21,16 +21,16 @@ export const MetricCard = ({
 }: MetricCardProps) => {
   return (
     <Card className={cn("overflow-hidden transition-all duration-200", className)}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-muted-foreground">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 pt-3 px-3">
+        <CardTitle className="text-xs font-medium text-muted-foreground">
           {title}
         </CardTitle>
         <Icon className="h-4 w-4 text-primary" />
       </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
+      <CardContent className="pb-3 pt-0 px-3">
+        <div className="text-lg font-bold">{value}</div>
         {trend && (
-          <div className="mt-2 flex items-center gap-2">
+          <div className="mt-1 flex items-center gap-1">
             <span
               className={cn(
                 "text-xs font-medium",
@@ -40,7 +40,7 @@ export const MetricCard = ({
               {trend.isPositive ? "+" : "-"}
               {trend.value}%
             </span>
-            <span className="text-xs text-muted-foreground">vs last month</span>
+            <span className="text-[10px] text-muted-foreground">vs last month</span>
           </div>
         )}
       </CardContent>

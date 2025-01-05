@@ -5,7 +5,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 export const DashboardMetrics = () => {
   return (
     <TooltipProvider>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-2 grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6">
         <Tooltip>
           <TooltipTrigger asChild>
             <div className="transition-transform hover:scale-105">
