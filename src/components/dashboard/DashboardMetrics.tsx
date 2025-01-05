@@ -1,9 +1,9 @@
 import { MetricCard } from "@/components/MetricCard";
-import { DollarSign, ShieldCheck, AlertTriangle, TrendingUp } from "lucide-react";
+import { DollarSign, ShieldCheck, AlertTriangle, TrendingUp, Coins } from "lucide-react";
 
 export const DashboardMetrics = () => {
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
       <MetricCard
         title="Total Premium"
         value="Ksh. 177,918.00"
@@ -31,6 +31,13 @@ export const DashboardMetrics = () => {
         icon={TrendingUp}
         trend={{ value: 15, isPositive: true }}
         className="bg-purple-50"
+      />
+      <MetricCard
+        title="Total Commission"
+        value="Ksh. 25,430.00"
+        icon={Coins}
+        trend={{ value: 10.2, isPositive: true }}
+        className="bg-indigo-50"
       />
     </div>
   );
