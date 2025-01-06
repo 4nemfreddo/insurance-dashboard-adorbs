@@ -15,10 +15,10 @@ export const CreateClaim = () => {
   const [notificationDate, setNotificationDate] = useState<Date>();
 
   return (
-    <Card className="p-6">
-      <h2 className="text-lg font-semibold mb-6">CLAIM DETAILS</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-4">
+    <Card className="p-4 max-w-5xl mx-auto">
+      <h2 className="text-lg font-semibold mb-4">CLAIM DETAILS</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-3">
           <div>
             <label className="block text-sm mb-1">Loss Date *</label>
             <Popover>
@@ -59,12 +59,12 @@ export const CreateClaim = () => {
             <label className="block text-sm mb-1">Loss Description</label>
             <Textarea 
               placeholder="Enter loss description"
-              className="min-h-[120px]"
+              className="min-h-[100px]"
             />
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div>
             <label className="block text-sm mb-1">Notification Date *</label>
             <Popover>
@@ -103,9 +103,9 @@ export const CreateClaim = () => {
         </div>
       </div>
 
-      <div className="flex justify-end gap-4 mt-6">
+      <div className="flex justify-end gap-3 mt-4">
         <Button variant="outline">Cancel</Button>
-        <Button>Confirm</Button>
+        <Button className="bg-green-700 hover:bg-green-800">Confirm</Button>
       </div>
     </Card>
   );

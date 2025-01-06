@@ -35,7 +35,7 @@ import { cn } from "@/lib/utils";
 
 const underwritingSubmenu = [
   { icon: Plus, label: "New Policy", path: "/underwriting/new" },
-  { icon: RefreshCw, label: "Extension/Renewal", path: "/underwriting/renewal" },
+  { icon: List, label: "Extension/Renewal", path: "/underwriting/renewal" },
   { icon: Search, label: "Policy Inquiry", path: "/underwriting/inquiry" },
   { icon: Download, label: "Policy Reports", path: "/underwriting/reports" },
   { icon: Phone, label: "M-Pesa Payment", path: "/underwriting/payment" },
@@ -163,3 +163,4 @@ export const DashboardSidebar = () => {
     </Sidebar>
   );
 };
+
