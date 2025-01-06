@@ -21,53 +21,53 @@ const COLORS = ["#60A5FA", "#34D399", "#F472B6", "#FBBF24"];
 
 export const AnalyticsDashboard = () => {
   return (
-    <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+    <div className="grid gap-4 h-[calc(100vh-12rem)]">
+      <div className="grid gap-2 grid-cols-2 lg:grid-cols-4">
+        <Card className="p-2">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 p-2">
             <CardTitle className="text-sm font-medium">Total Policies</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">1,234</div>
+          <CardContent className="p-2">
+            <div className="text-xl font-bold">1,234</div>
             <p className="text-xs text-muted-foreground">+20.1% from last month</p>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <Card className="p-2">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 p-2">
             <CardTitle className="text-sm font-medium">Active Claims</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">23</div>
+          <CardContent className="p-2">
+            <div className="text-xl font-bold">23</div>
             <p className="text-xs text-muted-foreground">+12% from last month</p>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <Card className="p-2">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 p-2">
             <CardTitle className="text-sm font-medium">Revenue</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">$54,232</div>
+          <CardContent className="p-2">
+            <div className="text-xl font-bold">$54,232</div>
             <p className="text-xs text-muted-foreground">+15.3% from last month</p>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <Card className="p-2">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 p-2">
             <CardTitle className="text-sm font-medium">Customer Satisfaction</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">98%</div>
+          <CardContent className="p-2">
+            <div className="text-xl font-bold">98%</div>
             <p className="text-xs text-muted-foreground">+2% from last month</p>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card className="col-span-1">
-          <CardHeader>
-            <CardTitle>Policy Growth</CardTitle>
+      <div className="grid gap-4 md:grid-cols-2 flex-1">
+        <Card className="p-2">
+          <CardHeader className="p-2">
+            <CardTitle className="text-sm">Policy Growth</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
+          <CardContent className="p-2">
+            <div className="h-[calc(100%-2rem)]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={lineChartData}>
                   <XAxis dataKey="month" />
@@ -80,12 +80,12 @@ export const AnalyticsDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="col-span-1">
-          <CardHeader>
-            <CardTitle>Policy Distribution</CardTitle>
+        <Card className="p-2">
+          <CardHeader className="p-2">
+            <CardTitle className="text-sm">Policy Distribution</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
+          <CardContent className="p-2">
+            <div className="h-[calc(100%-2rem)]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -105,14 +105,14 @@ export const AnalyticsDashboard = () => {
                   <Tooltip />
                 </PieChart>
               </ResponsiveContainer>
-              <div className="flex justify-center gap-4 mt-4">
+              <div className="flex flex-wrap justify-center gap-2 mt-2">
                 {pieChartData.map((entry, index) => (
-                  <div key={entry.name} className="flex items-center gap-2">
+                  <div key={entry.name} className="flex items-center gap-1">
                     <div
-                      className="w-3 h-3 rounded-full"
+                      className="w-2 h-2 rounded-full"
                       style={{ backgroundColor: COLORS[index % COLORS.length] }}
                     />
-                    <span className="text-sm">{entry.name}</span>
+                    <span className="text-xs">{entry.name}</span>
                   </div>
                 ))}
               </div>

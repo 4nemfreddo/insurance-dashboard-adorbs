@@ -12,7 +12,8 @@ import {
   Building,
   Menu,
   Plus,
-  RefreshCw,
+  List,
+  Clock,
   Search,
   Download,
   Phone,
@@ -40,6 +41,12 @@ const underwritingSubmenu = [
   { icon: Phone, label: "M-Pesa Payment", path: "/underwriting/payment" },
 ];
 
+const claimsSubmenu = [
+  { icon: Plus, label: "Create Claim", path: "/claims/create" },
+  { icon: List, label: "Claim Listing", path: "/claims/listing" },
+  { icon: Clock, label: "Claim Status", path: "/claims/status" },
+];
+
 const menuItems = [
   { icon: Home, label: "Dashboard", path: "/" },
   {
@@ -48,7 +55,12 @@ const menuItems = [
     path: "/underwriting",
     submenu: underwritingSubmenu,
   },
-  { icon: ClipboardList, label: "Claims", path: "/claims" },
+  { 
+    icon: ClipboardList, 
+    label: "Claims", 
+    path: "/claims",
+    submenu: claimsSubmenu,
+  },
   { icon: Users, label: "Customers", path: "/customers" },
   { icon: FileText, label: "Policies", path: "/policies" },
   { icon: CreditCard, label: "Payments", path: "/payments" },
@@ -73,7 +85,7 @@ export const DashboardSidebar = () => {
   return (
     <Sidebar>
       <SidebarContent>
-        <div className="flex items-center justify-between p-4 mb-4">
+        <div className="flex items-center justify-between p-4 mb-2">
           <div>
             <h1 className="text-xl font-bold text-primary">NexusGuard</h1>
             <p className="text-sm text-muted-foreground">Insurance Solutions</p>
@@ -103,7 +115,7 @@ export const DashboardSidebar = () => {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   {item.submenu && expandedItem === item.path && (
-                    <div className="ml-6 mt-2 space-y-1">
+                    <div className="ml-6 mt-1 space-y-1">
                       {item.submenu.map((subItem) => (
                         <SidebarMenuItem key={subItem.label}>
                           <SidebarMenuButton

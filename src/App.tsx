@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
+import { CreateClaim } from "./components/claims/CreateClaim";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,9 @@ const App = () => (
             <Route path="/underwriting/reports" element={<Index />} />
             <Route path="/underwriting/payment" element={<Index />} />
             <Route path="/claims" element={<Index />} />
+            <Route path="/claims/create" element={<CreateClaim />} />
+            <Route path="/claims/listing" element={<Index />} />
+            <Route path="/claims/status" element={<Index />} />
             <Route path="/customers" element={<Index />} />
             <Route path="/policies" element={<Index />} />
             <Route path="/payments" element={<Index />} />
