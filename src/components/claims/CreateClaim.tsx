@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -10,6 +9,13 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export const CreateClaim = () => {
   const [lossDate, setLossDate] = useState<Date>();
@@ -17,7 +23,7 @@ export const CreateClaim = () => {
 
   return (
     <DashboardLayout>
-      <div className="space-y-4">
+      <div className="space-y-4 max-h-[calc(100vh-6rem)] overflow-y-auto px-4">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Create New Claim</h1>
           <p className="text-gray-500">Fill in the details to submit a new claim</p>
@@ -54,12 +60,16 @@ export const CreateClaim = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1.5 text-gray-600">Risk</label>
-                <Select className="w-full">
-                  <option value="">Select Risk</option>
-                  <option value="fire">Fire</option>
-                  <option value="theft">Theft</option>
-                  <option value="accident">Accident</option>
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">Risk *</label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Risk" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="fire">Fire</SelectItem>
+                    <SelectItem value="theft">Theft</SelectItem>
+                    <SelectItem value="accident">Accident</SelectItem>
+                  </SelectContent>
                 </Select>
               </div>
 
@@ -67,7 +77,7 @@ export const CreateClaim = () => {
                 <label className="block text-sm font-medium mb-1.5 text-gray-600">Loss Description</label>
                 <Textarea 
                   placeholder="Enter loss description"
-                  className="min-h-[120px] resize-none"
+                  className="min-h-[100px] resize-none"
                 />
               </div>
             </div>
