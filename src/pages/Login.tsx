@@ -61,15 +61,15 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 p-4">
+      <Card className="w-full max-w-md backdrop-blur-sm bg-white/90 dark:bg-gray-900/90 shadow-xl border-0">
         <CardHeader className="space-y-2 text-center">
           <div className="flex justify-center mb-4">
             <Lock className="h-12 w-12 text-primary" />
           </div>
-          <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
-          <CardDescription>
-            Sign in to access your Monarch Insurance dashboard
+          <CardTitle className="text-2xl font-bold">Welcome to NexusGuard</CardTitle>
+          <CardDescription className="text-base">
+            Sign in to access your insurance dashboard
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -83,7 +83,7 @@ const Login = () => {
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700"
                   required
                   disabled={isLoading}
                 />
@@ -98,7 +98,7 @@ const Login = () => {
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700"
                   required
                   disabled={isLoading}
                 />
@@ -106,14 +106,14 @@ const Login = () => {
             </div>
             <Button 
               type="submit" 
-              className="w-full" 
+              className="w-full h-12 text-base font-medium bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all duration-200" 
               disabled={isLoading}
             >
               {isLoading ? "Signing in..." : "Sign in"}
             </Button>
-            <div className="text-center text-sm text-gray-500 mt-4">
+            <div className="text-center text-sm text-muted-foreground mt-4 space-y-1">
               <p>Demo credentials:</p>
-              <p>Email: demo@monarch.com</p>
+              <p>Email: demo@nexusguard.com</p>
               <p>Password: any password will work</p>
             </div>
           </form>
