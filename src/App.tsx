@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import { CreateClaim } from "./components/claims/CreateClaim";
+import { NewPolicy } from "./pages/underwriting/NewPolicy";
 
 const queryClient = new QueryClient();
 
@@ -21,7 +22,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Index />} />
             <Route path="/underwriting" element={<Index />} />
-            <Route path="/underwriting/new" element={<Index />} />
+            <Route path="/underwriting/new" element={<NewPolicy />} />
             <Route path="/underwriting/renewal" element={<Index />} />
             <Route path="/underwriting/inquiry" element={<Index />} />
             <Route path="/underwriting/reports" element={<Index />} />
