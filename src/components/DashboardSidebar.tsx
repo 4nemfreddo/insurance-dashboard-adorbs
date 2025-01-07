@@ -37,6 +37,8 @@ export const DashboardSidebar = () => {
                     path={item.path}
                     isActive={location.pathname === item.path}
                     onClick={() => item.submenu && toggleSubmenu(item.path)}
+                    hasSubmenu={!!item.submenu}
+                    isExpanded={expandedItem === item.path}
                   />
                   {item.submenu && expandedItem === item.path && (
                     <div className="ml-6 mt-1 space-y-1">
