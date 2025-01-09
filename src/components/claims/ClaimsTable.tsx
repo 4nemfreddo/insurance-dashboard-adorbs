@@ -10,41 +10,17 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useClaims } from "@/hooks/useClaims";
 
 interface ClaimsTableProps {
   searchQuery: string;
 }
 
-// Mock data - In a real app, this would come from an API
-const mockClaims = [
-  {
-    id: "CLM-001",
-    policyNumber: "POL-2024-001",
-    claimType: "Auto Accident",
-    dateSubmitted: "2024-03-15",
-    claimAmount: "$5,000",
-    status: "pending",
-  },
-  {
-    id: "CLM-002",
-    policyNumber: "POL-2024-003",
-    claimType: "Property Damage",
-    dateSubmitted: "2024-03-14",
-    claimAmount: "$12,500",
-    status: "approved",
-  },
-  {
-    id: "CLM-003",
-    policyNumber: "POL-2024-002",
-    claimType: "Medical",
-    dateSubmitted: "2024-03-13",
-    claimAmount: "$8,750",
-    status: "rejected",
-  },
-];
-
 export const ClaimsTable = ({ searchQuery }: ClaimsTableProps) => {
   const navigate = useNavigate();
+  const { claims, isLoading, error } = useClaims(searchQuery);
+
+  console.log("Claims table rendering", { claims, isLoading, error });
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -59,12 +35,29 @@ export const ClaimsTable = ({ searchQuery }: ClaimsTableProps) => {
     }
   };
 
-  const filteredClaims = mockClaims.filter(
-    (claim) =>
-      claim.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      claim.policyNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      claim.claimType.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-48">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-48 text-red-500">
+        Error loading claims. Please try again later.
+      </div>
+    );
+  }
+
+  if (!claims?.length) {
+    return (
+      <div className="flex items-center justify-center h-48 text-gray-500">
+        No claims found.
+      </div>
+    );
+  }
 
   return (
     <div className="rounded-md border">
@@ -81,7 +74,7 @@ export const ClaimsTable = ({ searchQuery }: ClaimsTableProps) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredClaims.map((claim) => (
+          {claims.map((claim) => (
             <TableRow key={claim.id}>
               <TableCell className="font-medium">{claim.id}</TableCell>
               <TableCell>{claim.policyNumber}</TableCell>
