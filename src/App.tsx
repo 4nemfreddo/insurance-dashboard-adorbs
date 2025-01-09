@@ -12,6 +12,8 @@ import { NewPolicy } from "./pages/underwriting/NewPolicy";
 import { PolicyRenewal } from "./pages/underwriting/PolicyRenewal";
 import { PolicyInquiry } from "./pages/underwriting/PolicyInquiry";
 import { PolicyReports } from "./pages/underwriting/PolicyReports";
+import { GrossStatement } from "./pages/reports/GrossStatement";
+import { CommissionStatement } from "./pages/reports/CommissionStatement";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +41,8 @@ const App = () => (
             <Route path="/policies" element={<Index />} />
             <Route path="/payments" element={<Index />} />
             <Route path="/reports" element={<Index />} />
+            <Route path="/reports/gross-statement" element={<GrossStatement />} />
+            <Route path="/reports/commission-statement" element={<CommissionStatement />} />
             <Route path="/company" element={<Index />} />
             <Route path="/knowledge" element={<Index />} />
             <Route path="/support" element={<Index />} />

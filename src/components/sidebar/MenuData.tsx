@@ -16,6 +16,8 @@ import {
   Search,
   Download,
   Phone,
+  DollarSign,
+  Receipt,
 } from "lucide-react";
 
 export const underwritingSubmenu = [
@@ -30,6 +32,11 @@ export const claimsSubmenu = [
   { icon: Plus, label: "Create Claim", path: "/claims/create" },
   { icon: List, label: "Claim Listing", path: "/claims/listing" },
   { icon: Clock, label: "Claim Status", path: "/claims/status" },
+];
+
+export const reportsSubmenu = [
+  { icon: DollarSign, label: "Gross Statement", path: "/reports/gross-statement" },
+  { icon: Receipt, label: "Commission Statement", path: "/reports/commission-statement" },
 ];
 
 export const menuItems = [
@@ -49,7 +56,12 @@ export const menuItems = [
   { icon: Users, label: "Customers", path: "/customers" },
   { icon: FileText, label: "Policies", path: "/policies" },
   { icon: CreditCard, label: "Payments", path: "/payments" },
-  { icon: BarChart2, label: "Reports", path: "/reports" },
+  { 
+    icon: BarChart2, 
+    label: "Reports", 
+    path: "/reports",
+    submenu: reportsSubmenu,
+  },
 ];
 
 export const secondaryItems = [
