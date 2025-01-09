@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 interface Claim {
@@ -44,8 +44,8 @@ const fetchClaims = async (): Promise<Claim[]> => {
 export const useClaims = (searchQuery: string) => {
   const [debouncedSearch, setDebouncedSearch] = useState(searchQuery);
 
-  // Debounce search query
-  useState(() => {
+  // Use useEffect for debouncing search query
+  useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(searchQuery);
     }, 300);
