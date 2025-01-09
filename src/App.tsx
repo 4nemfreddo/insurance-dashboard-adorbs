@@ -10,6 +10,8 @@ import { CreateClaim } from "./components/claims/CreateClaim";
 import { ClaimListing } from "./pages/claims/ClaimListing";
 import { NewPolicy } from "./pages/underwriting/NewPolicy";
 import { PolicyRenewal } from "./pages/underwriting/PolicyRenewal";
+import { PolicyInquiry } from "./pages/underwriting/PolicyInquiry";
+import { PolicyReports } from "./pages/underwriting/PolicyReports";
 
 const queryClient = new QueryClient();
 
@@ -26,8 +28,8 @@ const App = () => (
             <Route path="/underwriting" element={<Index />} />
             <Route path="/underwriting/new" element={<NewPolicy />} />
             <Route path="/underwriting/renewal" element={<PolicyRenewal />} />
-            <Route path="/underwriting/inquiry" element={<Index />} />
-            <Route path="/underwriting/reports" element={<Index />} />
+            <Route path="/underwriting/inquiry" element={<PolicyInquiry />} />
+            <Route path="/underwriting/reports" element={<PolicyReports />} />
             <Route path="/underwriting/payment" element={<Index />} />
             <Route path="/claims" element={<Index />} />
             <Route path="/claims/create" element={<CreateClaim />} />
