@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import { CreateClaim } from "./components/claims/CreateClaim";
 import { ClaimListing } from "./pages/claims/ClaimListing";
 import { NewPolicy } from "./pages/underwriting/NewPolicy";
+import { PolicyRenewal } from "./pages/underwriting/PolicyRenewal";
 
 const queryClient = new QueryClient();
 
@@ -24,7 +25,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/underwriting" element={<Index />} />
             <Route path="/underwriting/new" element={<NewPolicy />} />
-            <Route path="/underwriting/renewal" element={<Index />} />
+            <Route path="/underwriting/renewal" element={<PolicyRenewal />} />
             <Route path="/underwriting/inquiry" element={<Index />} />
             <Route path="/underwriting/reports" element={<Index />} />
             <Route path="/underwriting/payment" element={<Index />} />
