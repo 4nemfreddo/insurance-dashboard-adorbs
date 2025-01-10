@@ -1,5 +1,5 @@
 import { Menu, Bell, User, LogOut } from "lucide-react";
-import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +14,6 @@ import { Separator } from "@/components/ui/separator";
 export const Navbar = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { toggleSidebar } = useSidebar();
 
   const handleLogout = () => {
     // Clear user data from localStorage
@@ -47,15 +46,9 @@ export const Navbar = () => {
   return (
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 items-center gap-4 px-4">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="md:hidden"
-          onClick={toggleSidebar}
-        >
-          <Menu className="h-5 w-5" />
-          <span className="sr-only">Toggle Sidebar</span>
-        </Button>
+        <SidebarTrigger className="lg:hidden">
+          <Menu className="h-6 w-6" />
+        </SidebarTrigger>
         <div className="flex flex-1 items-center justify-between">
           <nav className="flex items-center space-x-4">
             {/* Add navigation items here if needed */}
