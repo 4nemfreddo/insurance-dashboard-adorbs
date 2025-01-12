@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
+import { AdminAuthGuard } from "@/components/guards/AdminAuthGuard";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import { CreateClaim } from "./components/claims/CreateClaim";
@@ -59,14 +60,14 @@ const App = () => (
             <Route path="/support" element={<Support />} />
             <Route path="/settings" element={<Settings />} />
             
-            {/* Admin Routes */}
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/company" element={<AdminCompanyEdit />} />
-            <Route path="/admin/knowledge" element={<AdminKnowledgeBase />} />
-            <Route path="/admin/support" element={<AdminSupport />} />
-            <Route path="/admin/reports" element={<AdminReports />} />
-            <Route path="/admin/users" element={<AdminUsers />} />
-            <Route path="/admin/settings" element={<AdminSettings />} />
+            {/* Admin Routes - Protected */}
+            <Route path="/admin" element={<AdminAuthGuard><AdminDashboard /></AdminAuthGuard>} />
+            <Route path="/admin/company" element={<AdminAuthGuard><AdminCompanyEdit /></AdminAuthGuard>} />
+            <Route path="/admin/knowledge" element={<AdminAuthGuard><AdminKnowledgeBase /></AdminAuthGuard>} />
+            <Route path="/admin/support" element={<AdminAuthGuard><AdminSupport /></AdminAuthGuard>} />
+            <Route path="/admin/reports" element={<AdminAuthGuard><AdminReports /></AdminAuthGuard>} />
+            <Route path="/admin/users" element={<AdminAuthGuard><AdminUsers /></AdminAuthGuard>} />
+            <Route path="/admin/settings" element={<AdminAuthGuard><AdminSettings /></AdminAuthGuard>} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
