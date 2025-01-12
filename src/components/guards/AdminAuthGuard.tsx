@@ -13,8 +13,11 @@ export const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
   const { toast } = useToast();
 
   useEffect(() => {
+    console.log("Checking admin authentication...");
     const user = localStorage.getItem('user');
+    
     if (!user) {
+      console.log("No user found in localStorage");
       toast({
         variant: "destructive",
         title: "Access Denied",
@@ -24,15 +27,32 @@ export const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
-    const userData = JSON.parse(user);
-    if (userData.email !== ADMIN_CREDENTIALS.email) {
-      toast({
-        variant: "destructive",
-        title: "Access Denied",
-        description: "You don't have admin privileges",
-      });
-      navigate('/');
+    try {
+      const userData = JSON.parse(user);
+      console.log("User data:", userData);
+      
+      if (userData.email !== ADMIN_CREDENTIALS.email) {
+        console.log("User is not an admin");
+        toast({
+          variant: "destructive",
+          title: "Access Denied",
+          description: "You don't have admin privileges",
+        });
+        navigate('/');
+        return;
+      }
+      
+      console.log("Admin access granted");
+      document.body.setAttribute('data-admin', 'true');
+    } catch (error) {
+      console.error("Error parsing user data:", error);
+      navigate('/login');
     }
+
+    // Cleanup function to remove admin styling when component unmounts
+    return () => {
+      document.body.removeAttribute('data-admin');
+    };
   }, [navigate, toast]);
 
   return <>{children}</>;
