@@ -19,6 +19,12 @@ import KnowledgeBase from "./pages/KnowledgeBase";
 import Support from "./pages/Support";
 import Settings from "./pages/Settings";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminCompanyEdit from "./pages/admin/AdminCompanyEdit";
+import AdminKnowledgeBase from "./pages/admin/AdminKnowledgeBase";
+import AdminSupport from "./pages/admin/AdminSupport";
+import AdminReports from "./pages/admin/AdminReports";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminSettings from "./pages/admin/AdminSettings";
 
 const queryClient = new QueryClient();
 
