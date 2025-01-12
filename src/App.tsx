@@ -18,6 +18,7 @@ import Company from "./pages/Company";
 import KnowledgeBase from "./pages/KnowledgeBase";
 import Support from "./pages/Support";
 import Settings from "./pages/Settings";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,15 @@ const App = () => (
             <Route path="/knowledge" element={<KnowledgeBase />} />
             <Route path="/support" element={<Support />} />
             <Route path="/settings" element={<Settings />} />
+            
+            {/* Admin Routes */}
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/company" element={<AdminCompanyEdit />} />
+            <Route path="/admin/knowledge" element={<AdminKnowledgeBase />} />
+            <Route path="/admin/support" element={<AdminSupport />} />
+            <Route path="/admin/reports" element={<AdminReports />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
+            <Route path="/admin/settings" element={<AdminSettings />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
