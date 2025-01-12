@@ -1,23 +1,23 @@
-import { DashboardLayout } from "@/components/DashboardLayout";
+import { AdminLayout } from "@/components/AdminLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, Users, Clock } from "lucide-react";
 
 const AdminSupport = () => {
   return (
-    <DashboardLayout>
+    <AdminLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900 mb-2">
+          <h1 className="text-2xl font-semibold text-gray-100 mb-2">
             Support Management
           </h1>
-          <p className="text-gray-500">
+          <p className="text-gray-400">
             Manage support tickets and inquiries
           </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
-          <Card>
+          <Card className="bg-[#222632] border-gray-800">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 Open Tickets
@@ -26,12 +26,12 @@ const AdminSupport = () => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">24</div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-gray-400">
                 +5 since yesterday
               </p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-[#222632] border-gray-800">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 Active Agents
@@ -40,12 +40,12 @@ const AdminSupport = () => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">8</div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-gray-400">
                 2 offline
               </p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-[#222632] border-gray-800">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 Avg. Response Time
@@ -54,16 +54,16 @@ const AdminSupport = () => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">2.5h</div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-gray-400">
                 -30min from last week
               </p>
             </CardContent>
           </Card>
         </div>
 
-        <Card>
+        <Card className="bg-[#222632] border-gray-800">
           <CardHeader>
-            <CardTitle>Recent Tickets</CardTitle>
+            <CardTitle className="text-gray-100">Recent Tickets</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -90,14 +90,14 @@ const AdminSupport = () => {
                   created: "1 day ago"
                 }
               ].map((ticket) => (
-                <div key={ticket.id} className="flex items-center justify-between p-4 border rounded-lg">
+                <div key={ticket.id} className="flex items-center justify-between p-4 border rounded-lg bg-[#1A1F2C]">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-medium">{ticket.id}</span>
-                      <span className="text-sm text-gray-500">•</span>
-                      <span className="text-sm">{ticket.subject}</span>
+                      <span className="font-medium text-gray-100">{ticket.id}</span>
+                      <span className="text-sm text-gray-400">•</span>
+                      <span className="text-sm text-gray-400">{ticket.subject}</span>
                     </div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-gray-400">
                       Created {ticket.created}
                     </div>
                   </div>
@@ -121,7 +121,7 @@ const AdminSupport = () => {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
+    </AdminLayout>
   );
 };
 

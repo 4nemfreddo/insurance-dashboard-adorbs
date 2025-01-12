@@ -1,17 +1,17 @@
-import { DashboardLayout } from "@/components/DashboardLayout";
+import { AdminLayout } from "@/components/AdminLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MetricCard } from "@/components/MetricCard";
 import { Users, BookOpen, MessageSquare, BarChart2 } from "lucide-react";
 
 const AdminDashboard = () => {
   return (
-    <DashboardLayout>
+    <AdminLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900 mb-2">
+          <h1 className="text-2xl font-semibold text-gray-100 mb-2">
             Admin Dashboard
           </h1>
-          <p className="text-gray-500">
+          <p className="text-gray-400">
             Manage content and user permissions across the platform
           </p>
         </div>
@@ -44,9 +44,9 @@ const AdminDashboard = () => {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          <Card>
+          <Card className="bg-[#222632] border-gray-800">
             <CardHeader>
-              <CardTitle>Recent Content Updates</CardTitle>
+              <CardTitle className="text-gray-100">Recent Content Updates</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -83,9 +83,9 @@ const AdminDashboard = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-[#222632] border-gray-800">
             <CardHeader>
-              <CardTitle>Report Access Overview</CardTitle>
+              <CardTitle className="text-gray-100">Report Access Overview</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -123,7 +123,7 @@ const AdminDashboard = () => {
           </Card>
         </div>
       </div>
-    </DashboardLayout>
+    </AdminLayout>
   );
 };
 

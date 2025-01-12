@@ -43,7 +43,7 @@ export const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
       }
       
       console.log("Admin access granted");
-      document.body.setAttribute('data-admin', 'true');
+      document.documentElement.classList.add('admin-theme');
     } catch (error) {
       console.error("Error parsing user data:", error);
       navigate('/login');
@@ -51,7 +51,7 @@ export const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
 
     // Cleanup function to remove admin styling when component unmounts
     return () => {
-      document.body.removeAttribute('data-admin');
+      document.documentElement.classList.remove('admin-theme');
     };
   }, [navigate, toast]);
 

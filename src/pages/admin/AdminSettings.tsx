@@ -1,4 +1,4 @@
-import { DashboardLayout } from "@/components/DashboardLayout";
+import { AdminLayout } from "@/components/AdminLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,7 +16,7 @@ const AdminSettings = () => {
   };
 
   return (
-    <DashboardLayout>
+    <AdminLayout>
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900 mb-2">
@@ -101,7 +101,7 @@ const AdminSettings = () => {
           </Button>
         </div>
       </div>
-    </DashboardLayout>
+    </AdminLayout>
   );
 };
 
