@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
   Sidebar,
@@ -14,6 +13,7 @@ import { SidebarHeader } from "./sidebar/SidebarHeader";
 
 export const AdminSidebar = () => {
   const location = useLocation();
+  console.log("Current admin location:", location.pathname);
 
   return (
     <Sidebar className="bg-[#1A1F2C] border-r border-gray-800">
@@ -25,11 +25,12 @@ export const AdminSidebar = () => {
             <SidebarMenu>
               {adminMenuItems.map((item) => (
                 <MenuItem
-                  key={item.label}
+                  key={item.path}
                   icon={item.icon}
                   label={item.label}
                   path={item.path}
                   isActive={location.pathname === item.path}
+                  submenu={item.submenu}
                 />
               ))}
             </SidebarMenu>
