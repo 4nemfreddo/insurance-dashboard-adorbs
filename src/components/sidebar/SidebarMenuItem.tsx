@@ -12,6 +12,9 @@ interface MenuItemProps {
   label: string;
   path: string;
   isActive: boolean;
+  onClick?: () => void;
+  hasSubmenu?: boolean;
+  isExpanded?: boolean;
   submenu?: Array<{
     icon: LucideIcon;
     label: string;
@@ -24,14 +27,15 @@ export const MenuItem = ({
   label, 
   path, 
   isActive,
+  onClick,
+  hasSubmenu,
+  isExpanded,
   submenu 
 }: MenuItemProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
   const handleSubmenuToggle = (e: React.MouseEvent) => {
-    if (submenu) {
+    if (submenu && onClick) {
       e.preventDefault();
-      setIsExpanded(!isExpanded);
+      onClick();
     }
   };
 
@@ -50,7 +54,7 @@ export const MenuItem = ({
             <Icon className="h-4 w-4" />
             <span>{label}</span>
           </Link>
-          {submenu && (
+          {hasSubmenu && (
             <span className="text-gray-400">
               {isExpanded ? (
                 <ChevronDown className="h-4 w-4" />
