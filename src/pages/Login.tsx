@@ -12,12 +12,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-// Temporary admin credentials
-const ADMIN_CREDENTIALS = {
-  email: "admin@nexusguard.com",
-  password: "admin123"
-};
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,27 +25,22 @@ const Login = () => {
     console.log("Login attempt with:", { email });
 
     try {
+      // Mock login for now - will be replaced with actual auth
       if (email && password) {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 1000));
         
-        // Check if admin credentials
-        const isAdmin = email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password;
-        
-        // Store user info in localStorage
+        // Store user info in localStorage (temporary solution)
         localStorage.setItem('user', JSON.stringify({
           name: email.split('@')[0],
           email: email,
-          isAdmin: isAdmin
         }));
 
         toast({
           title: "Welcome back!",
           description: `Good to see you, ${email.split('@')[0]}!`,
         });
-
-        // Redirect based on user type
-        navigate(isAdmin ? "/admin" : "/");
+        navigate("/");
       } else {
         toast({
           variant: "destructive",
@@ -124,10 +113,8 @@ const Login = () => {
             </Button>
             <div className="text-center text-sm text-muted-foreground mt-4 space-y-1">
               <p>Demo credentials:</p>
-              <p>Admin Email: admin@nexusguard.com</p>
-              <p>Admin Password: admin123</p>
-              <p>Regular User Email: demo@nexusguard.com</p>
-              <p>Regular Password: any password will work</p>
+              <p>Email: demo@nexusguard.com</p>
+              <p>Password: any password will work</p>
             </div>
           </form>
         </CardContent>
