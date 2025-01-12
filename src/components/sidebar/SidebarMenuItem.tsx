@@ -11,17 +11,24 @@ interface MenuItemProps {
   label: string;
   path: string;
   isActive: boolean;
+  onClick?: () => void;
+  hasSubmenu?: boolean;
+  isExpanded?: boolean;
 }
 
 export const MenuItem = ({ 
   icon: Icon, 
   label, 
   path, 
-  isActive
+  isActive,
+  onClick,
+  hasSubmenu,
+  isExpanded
 }: MenuItemProps) => {
   return (
     <BaseSidebarMenuItem>
       <SidebarMenuButton
+        onClick={onClick}
         className={cn(
           "w-full flex items-center gap-3",
           isActive ? "bg-primary/10" : ""
