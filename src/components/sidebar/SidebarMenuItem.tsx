@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronRight, LucideIcon } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 import {
   SidebarMenuItem as BaseSidebarMenuItem,
   SidebarMenuButton,
@@ -11,26 +11,19 @@ interface MenuItemProps {
   label: string;
   path: string;
   isActive: boolean;
-  onClick?: () => void;
-  hasSubmenu?: boolean;
-  isExpanded?: boolean;
 }
 
 export const MenuItem = ({ 
   icon: Icon, 
   label, 
   path, 
-  isActive, 
-  onClick,
-  hasSubmenu,
-  isExpanded 
+  isActive
 }: MenuItemProps) => {
   return (
     <BaseSidebarMenuItem>
       <SidebarMenuButton
-        onClick={onClick}
         className={cn(
-          "w-full flex items-center justify-between",
+          "w-full flex items-center gap-3",
           isActive ? "bg-primary/10" : ""
         )}
       >
@@ -38,15 +31,6 @@ export const MenuItem = ({
           <Icon className="h-4 w-4" />
           <span>{label}</span>
         </Link>
-        {hasSubmenu && (
-          <div className="ml-2">
-            {isExpanded ? (
-              <ChevronDown className="h-4 w-4" />
-            ) : (
-              <ChevronRight className="h-4 w-4" />
-            )}
-          </div>
-        )}
       </SidebarMenuButton>
     </BaseSidebarMenuItem>
   );

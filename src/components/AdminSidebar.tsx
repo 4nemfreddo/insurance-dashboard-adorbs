@@ -14,11 +14,6 @@ import { SidebarHeader } from "./sidebar/SidebarHeader";
 
 export const AdminSidebar = () => {
   const location = useLocation();
-  const [expandedItem, setExpandedItem] = useState<string | null>(null);
-
-  const toggleSubmenu = (path: string) => {
-    setExpandedItem(expandedItem === path ? null : path);
-  };
 
   return (
     <Sidebar className="bg-[#1A1F2C] border-r border-gray-800">
@@ -35,9 +30,6 @@ export const AdminSidebar = () => {
                   label={item.label}
                   path={item.path}
                   isActive={location.pathname === item.path}
-                  onClick={() => item.submenu && toggleSubmenu(item.path)}
-                  hasSubmenu={!!item.submenu}
-                  isExpanded={expandedItem === item.path}
                 />
               ))}
             </SidebarMenu>
