@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
   Sidebar,
@@ -13,7 +14,11 @@ import { SidebarHeader } from "./sidebar/SidebarHeader";
 
 export const AdminSidebar = () => {
   const location = useLocation();
-  console.log("Current admin location:", location.pathname);
+  const [expandedItem, setExpandedItem] = useState<string | null>(null);
+
+  const toggleSubmenu = (path: string) => {
+    setExpandedItem(expandedItem === path ? null : path);
+  };
 
   return (
     <Sidebar className="bg-[#1A1F2C] border-r border-gray-800">
@@ -25,12 +30,14 @@ export const AdminSidebar = () => {
             <SidebarMenu>
               {adminMenuItems.map((item) => (
                 <MenuItem
-                  key={item.path}
+                  key={item.label}
                   icon={item.icon}
                   label={item.label}
                   path={item.path}
                   isActive={location.pathname === item.path}
-                  submenu={item.submenu}
+                  onClick={() => item.submenu && toggleSubmenu(item.path)}
+                  hasSubmenu={!!item.submenu}
+                  isExpanded={expandedItem === item.path}
                 />
               ))}
             </SidebarMenu>

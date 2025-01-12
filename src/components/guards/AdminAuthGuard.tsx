@@ -1,18 +1,15 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import { adminMenuItems } from "../sidebar/AdminMenuData";
 
-// Temporary admin credentials with roles
+// Temporary admin credentials
 const ADMIN_CREDENTIALS = {
   email: "admin@nexusguard.com",
-  password: "admin123",
-  roles: ["admin", "reports", "users", "support", "settings"]
+  password: "admin123"
 };
 
 export const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { toast } = useToast();
 
   useEffect(() => {
@@ -44,23 +41,6 @@ export const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
         navigate('/');
         return;
       }
-
-      // Check route-specific access
-      const currentPath = location.pathname;
-      const requiredAccess = adminMenuItems.find(item => 
-        currentPath.startsWith(item.path)
-      )?.accessLevel;
-
-      if (requiredAccess && !ADMIN_CREDENTIALS.roles.includes(requiredAccess)) {
-        console.log(`User lacks ${requiredAccess} role`);
-        toast({
-          variant: "destructive",
-          title: "Access Denied",
-          description: "You don't have permission to access this section",
-        });
-        navigate('/admin');
-        return;
-      }
       
       console.log("Admin access granted");
       document.documentElement.classList.add('admin-theme');
@@ -69,10 +49,11 @@ export const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
       navigate('/login');
     }
 
+    // Cleanup function to remove admin styling when component unmounts
     return () => {
       document.documentElement.classList.remove('admin-theme');
     };
-  }, [navigate, toast, location]);
+  }, [navigate, toast]);
 
   return <>{children}</>;
 };

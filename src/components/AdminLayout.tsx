@@ -2,10 +2,6 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { AdminSidebar } from "./AdminSidebar";
 import { Navbar } from "./Navbar";
 
-interface NavbarProps {
-  className?: string;
-}
-
 export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SidebarProvider>
