@@ -1,121 +1,77 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
-import { Lock, Mail, KeyRound } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+  });
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    console.log("Login attempt with:", { email });
+    console.log("Login attempt with:", credentials);
 
-    try {
-      // Mock login for now - will be replaced with actual auth
-      if (email && password) {
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        
-        // Store user info in localStorage (temporary solution)
-        localStorage.setItem('user', JSON.stringify({
-          name: email.split('@')[0],
-          email: email,
-        }));
-
-        toast({
-          title: "Welcome back!",
-          description: `Good to see you, ${email.split('@')[0]}!`,
-        });
-        navigate("/");
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: "Please enter both email and password",
-        });
-      }
-    } catch (error) {
-      console.error("Login error:", error);
+    // Demo credentials - In production, this should be handled securely
+    if (credentials.email === "admin@example.com" && credentials.password === "admin123") {
+      localStorage.setItem("userRole", "admin");
       toast({
-        variant: "destructive",
-        title: "Login failed",
-        description: "Please check your credentials and try again",
+        title: "Login successful",
+        description: "Welcome to the admin dashboard",
       });
-    } finally {
-      setIsLoading(false);
+      navigate("/admin");
+    } else {
+      toast({
+        title: "Login failed",
+        description: "Invalid credentials. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 p-4">
-      <Card className="w-full max-w-md backdrop-blur-sm bg-white/90 dark:bg-gray-900/90 shadow-xl border-0">
-        <CardHeader className="space-y-2 text-center">
-          <div className="flex justify-center mb-4">
-            <Lock className="h-12 w-12 text-primary" />
-          </div>
-          <CardTitle className="text-2xl font-bold">Welcome to NexusGuard</CardTitle>
-          <CardDescription className="text-base">
-            Sign in to access your insurance dashboard
-          </CardDescription>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle className="text-2xl text-center">Admin Login</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
-              <div className="relative">
-                <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10 h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700"
-                  required
-                  disabled={isLoading}
-                />
-              </div>
+              <label htmlFor="email" className="text-sm font-medium">
+                Email
+              </label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="admin@example.com"
+                value={credentials.email}
+                onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+                required
+              />
             </div>
             <div className="space-y-2">
-              <div className="relative">
-                <KeyRound className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10 h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700"
-                  required
-                  disabled={isLoading}
-                />
-              </div>
+              <label htmlFor="password" className="text-sm font-medium">
+                Password
+              </label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                value={credentials.password}
+                onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+                required
+              />
             </div>
-            <Button 
-              type="submit" 
-              className="w-full h-12 text-base font-medium bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all duration-200" 
-              disabled={isLoading}
-            >
-              {isLoading ? "Signing in..." : "Sign in"}
+            <Button type="submit" className="w-full">
+              Login
             </Button>
-            <div className="text-center text-sm text-muted-foreground mt-4 space-y-1">
-              <p>Demo credentials:</p>
-              <p>Email: demo@nexusguard.com</p>
-              <p>Password: any password will work</p>
-            </div>
           </form>
         </CardContent>
       </Card>
