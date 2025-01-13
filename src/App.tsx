@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
+import { AdminAuthGuard } from "./components/auth/AdminAuthGuard";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import { CreateClaim } from "./components/claims/CreateClaim";
@@ -18,6 +19,7 @@ import Company from "./pages/Company";
 import KnowledgeBase from "./pages/KnowledgeBase";
 import Support from "./pages/Support";
 import Settings from "./pages/Settings";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminCompanyEdit from "./pages/admin/AdminCompanyEdit";
 
 const queryClient = new QueryClient();
@@ -52,7 +54,24 @@ const App = () => (
             <Route path="/knowledge" element={<KnowledgeBase />} />
             <Route path="/support" element={<Support />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/admin/company/edit" element={<AdminCompanyEdit />} />
+            
+            {/* Admin Routes */}
+            <Route
+              path="/admin"
+              element={
+                <AdminAuthGuard>
+                  <AdminDashboard />
+                </AdminAuthGuard>
+              }
+            />
+            <Route
+              path="/admin/company/edit"
+              element={
+                <AdminAuthGuard>
+                  <AdminCompanyEdit />
+                </AdminAuthGuard>
+              }
+            />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
