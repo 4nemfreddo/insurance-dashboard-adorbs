@@ -1,22 +1,35 @@
-# Welcome to your Lovable project
+# Note
+This is a private repository. Access is restricted to authorized collaborators only. If you believe you should have access or have any questions, please contact the repository owner.
 
-## Project info
+# Insurance Underwriting Software-as-a-Service
 
-**URL**: https://lovable.dev/projects/f008c7a9-8ed6-44e9-8752-818a9436e273
+A modern, efficient, and secure insurance underwriting platform built using React, Supabase, and PostgreSQL. This solution simplifies the underwriting process, enhances decision-making, and improves overall efficiency for insurance companies.
+
+## Features
+
+- Dynamic Underwriting Forms: Create and customize forms to collect necessary applicant information.
+
+- Automated Risk Assessment: Use advanced algorithms to evaluate risk profiles.
+
+- Role-Based Access Control: Secure and restrict access based on user roles (e.g., agents, managers, admins).
+
+- Document Management: Upload and manage policyholder documents securely.
+
+- Analytics Dashboard: Gain insights with charts and visualizations on underwriting performance.
+
+- Seamless Integration: Connect with third-party APIs to fetch additional data for risk analysis.
+
+- Real-Time Collaboration: Collaborate with team members in real-time during the underwriting process.
+
+## Tech Stack
+
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
 ## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/f008c7a9-8ed6-44e9-8752-818a9436e273) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
@@ -50,20 +63,3 @@ npm run dev
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/f008c7a9-8ed6-44e9-8752-818a9436e273) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
