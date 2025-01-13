@@ -10,21 +10,38 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
+import { signOut, getCurrentProfile } from "@/lib/supabase";
+import { useEffect, useState } from "react";
+import { Database } from "@/lib/database.types";
+
+type Profile = Database['public']['Tables']['profiles']['Row'];
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [profile, setProfile] = useState<Profile | null>(null);
 
-  const handleLogout = () => {
-    // Clear user data from localStorage
-    localStorage.removeItem('user');
-    
-    toast({
-      title: "Logged out successfully",
-      description: "See you next time!",
-    });
-    
-    navigate("/login");
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const userProfile = await getCurrentProfile();
+        setProfile(userProfile);
+      } catch (error) {
+        console.error('Error loading profile:', error);
+      }
+    };
+
+    loadProfile();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      setProfile(null);
+      navigate("/login");
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   // Mock notifications - in a real app, these would come from your backend
@@ -97,14 +114,10 @@ export const Navbar = () => {
                 <div className="flex flex-col space-y-4">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium">
-                      {localStorage.getItem('user') 
-                        ? JSON.parse(localStorage.getItem('user')!).name 
-                        : 'User'}
+                      {profile?.full_name || 'User'}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {localStorage.getItem('user') 
-                        ? JSON.parse(localStorage.getItem('user')!).email 
-                        : 'user@example.com'}
+                      {profile?.company_name || 'Company'}
                     </p>
                   </div>
                   <Separator />
