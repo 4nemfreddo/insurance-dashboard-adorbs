@@ -2,8 +2,14 @@ import { createClient } from '@supabase/supabase-js';
 import { Database } from './database.types';
 import { toast } from "@/components/ui/use-toast";
 
-const supabaseUrl = 'YOUR_SUPABASE_URL';
-const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
+// Make sure these environment variables are set in your .env file
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('Missing Supabase environment variables');
+  throw new Error('Missing Supabase environment variables');
+}
 
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
