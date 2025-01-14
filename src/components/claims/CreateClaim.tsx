@@ -9,6 +9,8 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
+import { useToast } from "@/components/ui/use-toast";
+import { createClaim, uploadFile } from "@/lib/api";
 import {
   Select,
   SelectContent,
@@ -20,6 +22,64 @@ import {
 export const CreateClaim = () => {
   const [lossDate, setLossDate] = useState<Date>();
   const [notificationDate, setNotificationDate] = useState<Date>();
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const [risk, setRisk] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubmit = async () => {
+    if (!lossDate || !notificationDate || !risk) {
+      toast({
+        title: "Validation Error",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      // Create the claim
+      const claim = await createClaim({
+        claim_number: `CLM-${Date.now()}`,
+        policy_id: "placeholder", // You'll need to get this from the selected policy
+        customer_id: "placeholder", // You'll need to get this from the current user
+        status: "pending",
+        description,
+        submitted_date: new Date().toISOString(),
+      });
+
+      // Upload file if present
+      if (file) {
+        const path = `claims/${claim.id}/${file.name}`;
+        await uploadFile('claims', path, file);
+      }
+
+      toast({
+        title: "Success",
+        description: "Claim created successfully",
+      });
+
+      // Reset form
+      setLossDate(undefined);
+      setNotificationDate(undefined);
+      setDescription("");
+      setLocation("");
+      setRisk("");
+      setFile(null);
+    } catch (error) {
+      console.error('Error creating claim:', error);
+      toast({
+        title: "Error",
+        description: "Failed to create claim. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <DashboardLayout>
@@ -61,7 +121,7 @@ export const CreateClaim = () => {
 
               <div>
                 <label className="block text-sm font-medium mb-1.5 text-gray-600">Risk *</label>
-                <Select>
+                <Select value={risk} onValueChange={setRisk}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select Risk" />
                   </SelectTrigger>
@@ -78,6 +138,8 @@ export const CreateClaim = () => {
                 <Textarea 
                   placeholder="Enter loss description"
                   className="min-h-[100px] resize-none"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
             </div>
@@ -111,22 +173,33 @@ export const CreateClaim = () => {
 
               <div>
                 <label className="block text-sm font-medium mb-1.5 text-gray-600">Location</label>
-                <Input placeholder="Enter location" />
+                <Input 
+                  placeholder="Enter location" 
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
               </div>
 
               <div>
                 <label className="block text-sm font-medium mb-1.5 text-gray-600">Claim File</label>
                 <Input 
                   type="file" 
-                  className="cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-primary file:text-primary-foreground hover:file:bg-primary/90" 
+                  className="cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                  onChange={(e) => setFile(e.target.files?.[0] || null)}
                 />
               </div>
             </div>
           </div>
 
           <div className="flex justify-end gap-4 mt-6">
-            <Button variant="outline">Cancel</Button>
-            <Button className="bg-success hover:bg-success/90">Submit Claim</Button>
+            <Button variant="outline" disabled={isSubmitting}>Cancel</Button>
+            <Button 
+              className="bg-success hover:bg-success/90" 
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Submit Claim"}
+            </Button>
           </div>
         </Card>
       </div>
