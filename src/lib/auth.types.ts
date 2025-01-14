@@ -12,3 +12,13 @@ export type AuthResponse = {
   user: AuthUser | null;
   error: AuthError | null;
 };
+
+export type SignInCredentials = {
+  email: string;
+  password: string;
+};
+
+export type SignUpCredentials = SignInCredentials & {
+  full_name?: string;
+  company_name?: string;
+};
