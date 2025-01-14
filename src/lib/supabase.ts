@@ -1,8 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { Database } from './database.types';
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
 
-// Make sure these environment variables are set in your .env file
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
@@ -32,6 +31,10 @@ export const signInWithEmail = async (email: string, password: string) => {
   }
 
   console.log('Sign in successful:', data);
+  toast({
+    title: "Welcome back!",
+    description: "You have successfully signed in.",
+  });
   return data;
 };
 
@@ -42,6 +45,9 @@ export const signUp = async (email: string, password: string) => {
     password,
     options: {
       emailRedirectTo: `${window.location.origin}/auth/callback`,
+      data: {
+        role: 'user', // Default role for new users
+      }
     },
   });
 
@@ -56,6 +62,10 @@ export const signUp = async (email: string, password: string) => {
   }
 
   console.log('Sign up successful:', data);
+  toast({
+    title: "Welcome!",
+    description: "Please check your email to confirm your account.",
+  });
   return data;
 };
 
@@ -74,6 +84,10 @@ export const signOut = async () => {
   }
 
   console.log('Sign out successful');
+  toast({
+    title: "Signed out",
+    description: "You have been successfully signed out.",
+  });
 };
 
 // Profile helpers
@@ -95,6 +109,33 @@ export const getCurrentProfile = async () => {
 
   console.log('Profile fetched:', profile);
   return profile;
+};
+
+export const updateProfile = async (userId: string, updates: Partial<Database['public']['Tables']['profiles']['Update']>) => {
+  console.log('Updating profile for user:', userId, updates);
+  const { data, error } = await supabase
+    .from('profiles')
+    .update(updates)
+    .eq('id', userId)
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error updating profile:', error.message);
+    toast({
+      title: "Error updating profile",
+      description: error.message,
+      variant: "destructive",
+    });
+    throw error;
+  }
+
+  console.log('Profile updated:', data);
+  toast({
+    title: "Profile updated",
+    description: "Your profile has been successfully updated.",
+  });
+  return data;
 };
 
 // Admin check helper

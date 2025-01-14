@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { signInWithEmail, signUp } from "@/lib/supabase";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -21,14 +21,7 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const { user } = await signInWithEmail(credentials.email, credentials.password);
-      console.log("Login successful:", user);
-      
-      toast({
-        title: "Login successful",
-        description: "Welcome back!",
-      });
-      
+      await signInWithEmail(credentials.email, credentials.password);
       navigate("/");
     } catch (error) {
       console.error("Login error:", error);
@@ -43,7 +36,6 @@ const Login = () => {
 
     try {
       await signUp(credentials.email, credentials.password);
-      
       toast({
         title: "Sign up successful",
         description: "Please check your email to confirm your account.",
@@ -56,7 +48,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl text-center">Welcome</CardTitle>

@@ -1,11 +1,7 @@
+import { useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-
-// Mock admin check - replace with actual authentication logic
-const isAdmin = () => {
-  // For demo purposes, checking if user has admin role in localStorage
-  const userRole = localStorage.getItem("userRole");
-  return userRole === "admin";
-};
+import { isAdmin } from "@/lib/supabase";
+import { useToast } from "@/hooks/use-toast";
 
 interface AdminAuthGuardProps {
   children: React.ReactNode;
@@ -13,9 +9,38 @@ interface AdminAuthGuardProps {
 
 export const AdminAuthGuard = ({ children }: AdminAuthGuardProps) => {
   const location = useLocation();
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(true);
+  const [hasAccess, setHasAccess] = useState(false);
 
-  if (!isAdmin()) {
-    // Redirect to login if not authenticated
+  useEffect(() => {
+    const checkAdminAccess = async () => {
+      try {
+        const adminAccess = await isAdmin();
+        setHasAccess(adminAccess);
+        if (!adminAccess) {
+          toast({
+            title: "Access Denied",
+            description: "You need admin privileges to access this page.",
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
+        console.error("Error checking admin access:", error);
+        setHasAccess(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAdminAccess();
+  }, [toast]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!hasAccess) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
