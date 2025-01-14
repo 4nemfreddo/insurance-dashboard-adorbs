@@ -25,6 +25,7 @@ export const CreateClaim = () => {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [risk, setRisk] = useState("");
+  const [amount, setAmount] = useState<number>(0);
   const [file, setFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -48,6 +49,7 @@ export const CreateClaim = () => {
         customer_id: "placeholder", // You'll need to get this from the current user
         status: "pending",
         description,
+        amount,
         submitted_date: new Date().toISOString(),
       });
 
@@ -68,6 +70,7 @@ export const CreateClaim = () => {
       setDescription("");
       setLocation("");
       setRisk("");
+      setAmount(0);
       setFile(null);
     } catch (error) {
       console.error('Error creating claim:', error);
@@ -140,6 +143,16 @@ export const CreateClaim = () => {
                   className="min-h-[100px] resize-none"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">Claim Amount *</label>
+                <Input 
+                  type="number"
+                  placeholder="Enter claim amount"
+                  value={amount}
+                  onChange={(e) => setAmount(Number(e.target.value))}
                 />
               </div>
             </div>
