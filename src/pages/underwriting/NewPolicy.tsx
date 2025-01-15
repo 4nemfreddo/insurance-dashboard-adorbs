@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,7 +12,15 @@ import {
 } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const steps = [
   { id: 1, title: "Insured Details" },
@@ -21,6 +30,8 @@ const steps = [
 
 export const NewPolicy = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
 
   return (
     <DashboardLayout>
@@ -65,9 +76,9 @@ export const NewPolicy = () => {
           {currentStep === 1 && (
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <Label className="text-sm font-medium mb-1.5 text-gray-600">
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">
                   Product *
-                </Label>
+                </label>
                 <Select>
                   <SelectTrigger>
                     <SelectValue placeholder="Select Product" />
@@ -81,30 +92,30 @@ export const NewPolicy = () => {
               </div>
 
               <div>
-                <Label className="text-sm font-medium mb-1.5 text-gray-600">
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">
                   Pin Number *
-                </Label>
+                </label>
                 <Input placeholder="Enter PIN number" />
               </div>
 
               <div>
-                <Label className="text-sm font-medium mb-1.5 text-gray-600">
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">
                   Policy Holder *
-                </Label>
+                </label>
                 <Input placeholder="Enter policy holder name" />
               </div>
 
               <div>
-                <Label className="text-sm font-medium mb-1.5 text-gray-600">
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">
                   Email Address
-                </Label>
+                </label>
                 <Input type="email" placeholder="Enter email address" />
               </div>
 
               <div className="col-span-2">
-                <Label className="text-sm font-medium mb-1.5 text-gray-600">
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">
                   Commission Type *
-                </Label>
+                </label>
                 <RadioGroup defaultValue="net" className="flex gap-4">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="net" id="net" />
@@ -115,6 +126,113 @@ export const NewPolicy = () => {
                     <Label htmlFor="gross">Gross</Label>
                   </div>
                 </RadioGroup>
+              </div>
+            </div>
+          )}
+
+          {currentStep === 2 && (
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <Label className="text-sm font-medium mb-1.5 text-gray-600">
+                  Policy Number *
+                </Label>
+                <Input placeholder="Enter policy number" />
+              </div>
+
+              <div>
+                <Label className="text-sm font-medium mb-1.5 text-gray-600">
+                  Policy Type *
+                </Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select policy type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="comprehensive">Comprehensive</SelectItem>
+                    <SelectItem value="thirdParty">Third Party</SelectItem>
+                    <SelectItem value="thirdPartyFire">Third Party Fire & Theft</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label className="text-sm font-medium mb-1.5 text-gray-600">
+                  Start Date *
+                </Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !startDate && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {startDate ? format(startDate, "PPP") : "Pick a date"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0">
+                    <Calendar
+                      mode="single"
+                      selected={startDate}
+                      onSelect={setStartDate}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+
+              <div>
+                <Label className="text-sm font-medium mb-1.5 text-gray-600">
+                  End Date *
+                </Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !endDate && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {endDate ? format(endDate, "PPP") : "Pick a date"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0">
+                    <Calendar
+                      mode="single"
+                      selected={endDate}
+                      onSelect={setEndDate}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+
+              <div>
+                <Label className="text-sm font-medium mb-1.5 text-gray-600">
+                  Premium Amount *
+                </Label>
+                <Input type="number" placeholder="Enter premium amount" />
+              </div>
+
+              <div>
+                <Label className="text-sm font-medium mb-1.5 text-gray-600">
+                  Payment Terms *
+                </Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select payment terms" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="annual">Annual</SelectItem>
+                    <SelectItem value="semiannual">Semi-Annual</SelectItem>
+                    <SelectItem value="quarterly">Quarterly</SelectItem>
+                    <SelectItem value="monthly">Monthly</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           )}
