@@ -237,6 +237,84 @@ export const NewPolicy = () => {
             </div>
           )}
 
+          {currentStep === 3 && (
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">
+                  Vehicle Make *
+                </label>
+                <Input placeholder="Enter vehicle make" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">
+                  Vehicle Model *
+                </label>
+                <Input placeholder="Enter vehicle model" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">
+                  Registration Number *
+                </label>
+                <Input placeholder="Enter registration number" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">
+                  Year of Manufacture *
+                </label>
+                <Input type="number" placeholder="Enter year" min="1900" max={new Date().getFullYear()} />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">
+                  Engine Number
+                </label>
+                <Input placeholder="Enter engine number" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">
+                  Chassis Number *
+                </label>
+                <Input placeholder="Enter chassis number" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">
+                  Vehicle Category *
+                </label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="private">Private</SelectItem>
+                    <SelectItem value="commercial">Commercial</SelectItem>
+                    <SelectItem value="psv">PSV</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-gray-600">
+                  Vehicle Use *
+                </label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select vehicle use" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="personal">Personal</SelectItem>
+                    <SelectItem value="business">Business</SelectItem>
+                    <SelectItem value="hire">Hire</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          )}
+
           <div className="flex justify-between mt-6">
             <Button
               variant="outline"
@@ -245,12 +323,17 @@ export const NewPolicy = () => {
             >
               Previous
             </Button>
-            <Button
-              onClick={() => setCurrentStep((prev) => Math.min(prev + 1, steps.length))}
-              disabled={currentStep === steps.length}
-            >
-              Next
-            </Button>
+            {currentStep === steps.length ? (
+              <Button onClick={() => console.log("Submit form")}>
+                Submit
+              </Button>
+            ) : (
+              <Button
+                onClick={() => setCurrentStep((prev) => Math.min(prev + 1, steps.length))}
+              >
+                Next
+              </Button>
+            )}
           </div>
         </Card>
       </div>
