@@ -1,150 +1,199 @@
 import { useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PolicyDetailsStep } from "@/components/underwriting/PolicyDetailsStep";
-import { VehicleInformationStep } from "@/components/underwriting/VehicleInformationStep";
 import { useToast } from "@/hooks/use-toast";
+import { SelectRiskStep } from "@/components/underwriting/steps/SelectRiskStep";
+import { CoverTypeStep } from "@/components/underwriting/steps/CoverTypeStep";
+import { ProposalFormStep } from "@/components/underwriting/steps/ProposalFormStep";
+import { CoverDetailsStep } from "@/components/underwriting/steps/CoverDetailsStep";
+import { KYCDocumentsStep } from "@/components/underwriting/steps/KYCDocumentsStep";
+import { PaymentStep } from "@/components/underwriting/steps/PaymentStep";
+import { Check } from "lucide-react";
 
 const steps = [
-  { id: 1, title: "Customer Information" },
-  { id: 2, title: "Policy Details" },
-  { id: 3, title: "Vehicle Information" },
-  { id: 4, title: "Documents" },
+  { id: 1, title: "Select Risk" },
+  { id: 2, title: "Cover Type" },
+  { id: 3, title: "Proposal Form" },
+  { id: 4, title: "Cover Details" },
+  { id: 5, title: "KYC Documents" },
+  { id: 6, title: "Payment" },
+  { id: 7, title: "Confirmation" },
 ];
 
 export const NewPolicy = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    // Customer Information
-    customerName: "",
-    customerEmail: "",
-    customerPhone: "",
-    // Policy Details
-    policyNumber: "",
-    policyType: "",
-    startDate: null,
-    endDate: null,
-    premiumAmount: "",
-    paymentTerms: "",
-    // Vehicle Information
-    vehicleMake: "",
-    vehicleModel: "",
-    registrationNumber: "",
-    yearOfManufacture: "",
-    engineNumber: "",
-    chassisNumber: "",
-    vehicleCategory: "",
-    vehicleUse: "",
+    riskType: "",
+    coverType: "",
+    proposalForm: null as File | null,
+    startDate: undefined as Date | undefined,
+    installmentType: "",
+    kycDocuments: {
+      id: null,
+      kra: null,
+      logbook: null,
+    } as Record<string, File | null>,
+    paymentType: "gross",
+    isPaid: false,
   });
 
   const { toast } = useToast();
 
-  const handleFormChange = (field: string, value: any) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+  const handleNext = () => {
+    if (currentStep < steps.length) {
+      setCurrentStep(currentStep + 1);
+    }
   };
 
-  const handleSubmit = () => {
-    console.log("Form submitted:", formData);
-    toast({
-      title: "Success",
-      description: "Policy has been created successfully",
-    });
+  const handlePrevious = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const handlePayment = () => {
+    // Simulate payment processing
+    setTimeout(() => {
+      setFormData(prev => ({ ...prev, isPaid: true }));
+      toast({
+        title: "Payment successful",
+        description: "Your policy has been created successfully",
+      });
+      handleNext();
+    }, 2000);
   };
 
   return (
     <DashboardLayout>
-      <div className="max-w-5xl mx-auto">
-        <div className="mb-6">
+      <div className="max-w-4xl mx-auto p-6 space-y-6">
+        <div>
           <h1 className="text-2xl font-semibold">New Policy</h1>
-          <p className="text-gray-500">Create a new insurance policy</p>
+          <p className="text-muted-foreground">Create a new motor insurance policy</p>
         </div>
 
-        <div className="mb-8">
-          <div className="flex justify-between items-center">
-            {steps.map((step) => (
+        <div className="flex justify-between items-center">
+          {steps.map((step) => (
+            <div
+              key={step.id}
+              className={`flex items-center ${
+                step.id !== steps.length && "flex-1"
+              }`}
+            >
               <div
-                key={step.id}
-                className={`flex items-center ${
-                  step.id !== steps.length && "flex-1"
+                className={`flex items-center justify-center w-8 h-8 rounded-full border-2 
+                  ${
+                    step.id === currentStep
+                      ? "border-primary bg-primary text-white"
+                      : step.id < currentStep
+                      ? "border-primary text-primary"
+                      : "border-gray-300 text-gray-300"
+                  }`}
+              >
+                {step.id < currentStep ? <Check className="h-4 w-4" /> : step.id}
+              </div>
+              <span
+                className={`ml-2 text-sm hidden md:inline ${
+                  step.id === currentStep
+                    ? "text-primary font-medium"
+                    : step.id < currentStep
+                    ? "text-primary"
+                    : "text-gray-500"
                 }`}
               >
+                {step.title}
+              </span>
+              {step.id !== steps.length && (
                 <div
-                  className={`flex items-center justify-center w-8 h-8 rounded-full border-2 
-                    ${
-                      step.id === currentStep
-                        ? "border-primary bg-primary text-white"
-                        : step.id < currentStep
-                        ? "border-primary text-primary"
-                        : "border-gray-300 text-gray-300"
-                    }`}
-                >
-                  {step.id}
-                </div>
-                <div
-                  className={`ml-2 ${
-                    step.id === currentStep
-                      ? "text-primary"
-                      : step.id < currentStep
-                      ? "text-primary"
-                      : "text-gray-300"
+                  className={`flex-1 h-0.5 mx-4 ${
+                    step.id < currentStep ? "bg-primary" : "bg-gray-200"
                   }`}
-                >
-                  {step.title}
-                </div>
-                {step.id !== steps.length && (
-                  <div
-                    className={`flex-1 h-0.5 mx-4 ${
-                      step.id < currentStep ? "bg-primary" : "bg-gray-200"
-                    }`}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
+                />
+              )}
+            </div>
+          ))}
         </div>
 
-        <Card className="p-6">
+        <div className="mt-8">
           {currentStep === 1 && (
-            <div>Customer Information Step (to be implemented)</div>
+            <SelectRiskStep
+              value={formData.riskType}
+              onChange={(value) => setFormData({ ...formData, riskType: value })}
+            />
           )}
 
           {currentStep === 2 && (
-            <PolicyDetailsStep formData={formData} onChange={handleFormChange} />
+            <CoverTypeStep
+              value={formData.coverType}
+              onChange={(value) => setFormData({ ...formData, coverType: value })}
+            />
           )}
 
           {currentStep === 3 && (
-            <VehicleInformationStep formData={formData} onChange={handleFormChange} />
+            <ProposalFormStep
+              onFileUpload={(file) => setFormData({ ...formData, proposalForm: file })}
+            />
           )}
 
           {currentStep === 4 && (
-            <div>Documents Step (to be implemented)</div>
+            <CoverDetailsStep
+              startDate={formData.startDate}
+              installmentType={formData.installmentType}
+              onStartDateChange={(date) => setFormData({ ...formData, startDate: date })}
+              onInstallmentTypeChange={(value) =>
+                setFormData({ ...formData, installmentType: value })
+              }
+            />
           )}
 
-          <div className="flex justify-between mt-6">
-            <Button
-              variant="outline"
-              onClick={() => setCurrentStep((prev) => Math.max(prev - 1, 1))}
-              disabled={currentStep === 1}
-            >
-              Previous
-            </Button>
-            {currentStep === steps.length ? (
-              <Button onClick={handleSubmit}>
-                Submit
-              </Button>
-            ) : (
+          {currentStep === 5 && (
+            <KYCDocumentsStep
+              onFileUpload={(type, file) =>
+                setFormData({
+                  ...formData,
+                  kycDocuments: { ...formData.kycDocuments, [type.toLowerCase()]: file },
+                })
+              }
+            />
+          )}
+
+          {currentStep === 6 && (
+            <PaymentStep
+              paymentType={formData.paymentType}
+              amount={50000} // This would be calculated based on the policy details
+              onPaymentTypeChange={(value) =>
+                setFormData({ ...formData, paymentType: value })
+              }
+              onMakePayment={handlePayment}
+            />
+          )}
+
+          {currentStep === 7 && (
+            <div className="text-center py-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
+                <Check className="h-8 w-8 text-green-600" />
+              </div>
+              <h2 className="text-2xl font-semibold mb-2">Policy Created Successfully</h2>
+              <p className="text-muted-foreground">
+                Your policy has been created and payment has been confirmed
+              </p>
+            </div>
+          )}
+
+          {currentStep !== 7 && (
+            <div className="flex justify-between mt-6">
               <Button
-                onClick={() => setCurrentStep((prev) => Math.min(prev + 1, steps.length))}
+                variant="outline"
+                onClick={handlePrevious}
+                disabled={currentStep === 1}
               >
-                Next
+                Previous
               </Button>
-            )}
-          </div>
-        </Card>
+              {currentStep !== 6 && (
+                <Button onClick={handleNext}>Next</Button>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </DashboardLayout>
   );
