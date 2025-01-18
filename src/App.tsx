@@ -21,8 +21,6 @@ import Support from "./pages/Support";
 import Settings from "./pages/Settings";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminCompanyEdit from "./pages/admin/AdminCompanyEdit";
-import Customers from "./pages/Customers";
-import Policies from "./pages/Policies";
 
 const queryClient = new QueryClient();
 
@@ -46,8 +44,8 @@ const App = () => (
             <Route path="/claims/create" element={<CreateClaim />} />
             <Route path="/claims/listing" element={<ClaimListing />} />
             <Route path="/claims/status" element={<Index />} />
-            <Route path="/customers" element={<Customers />} />
-            <Route path="/policies" element={<Policies />} />
+            <Route path="/customers" element={<Index />} />
+            <Route path="/policies" element={<Index />} />
             <Route path="/payments" element={<Index />} />
             <Route path="/reports" element={<Index />} />
             <Route path="/reports/gross-statement" element={<GrossStatement />} />
