@@ -48,6 +48,11 @@ const spanVariants = {
 
 const transition = { delay: 0.1, type: "spring", bounce: 0, duration: 0.6 };
 
+// Type guard function to check if a tab is of type Tab
+function isTab(tab: TabItem): tab is Tab {
+  return !('type' in tab);
+}
+
 export function ExpandableTabs({
   tabs,
   className,
@@ -84,8 +89,7 @@ export function ExpandableTabs({
           return <Separator key={`separator-${index}`} />;
         }
 
-        // TypeScript type guard to ensure tab is of type Tab
-        if (!('icon' in tab) || !('title' in tab)) {
+        if (!isTab(tab)) {
           return null;
         }
 
