@@ -21,7 +21,7 @@ interface Separator {
 type TabItem = Tab | Separator;
 
 interface ExpandableTabsProps {
-  tabs: TabItem[];
+  tabs: readonly TabItem[];
   className?: string;
   activeColor?: string;
   onChange?: (index: number | null) => void;

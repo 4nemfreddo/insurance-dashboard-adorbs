@@ -1,4 +1,4 @@
-import { Bell, User, LogOut, Settings, HelpCircle } from "lucide-react";
+import { Bell, User, LogOut, Settings, HelpCircle, Menu } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
@@ -66,8 +66,8 @@ export const Navbar = () => {
     { type: "separator" as const },
     { title: "Settings", icon: Settings },
     { title: "Support", icon: HelpCircle },
-    { title: "Profile", icon: User },
-  ];
+    { title: "Profile", icon: User }
+  ] as const;
 
   return (
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
