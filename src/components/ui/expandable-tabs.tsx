@@ -84,6 +84,11 @@ export function ExpandableTabs({
           return <Separator key={`separator-${index}`} />;
         }
 
+        // TypeScript type guard to ensure tab is of type Tab
+        if (!('icon' in tab) || !('title' in tab)) {
+          return null;
+        }
+
         const Icon = tab.icon;
         return (
           <motion.button
