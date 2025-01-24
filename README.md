@@ -1,6 +1,8 @@
 # Note
 This is a private repository. Access is restricted to authorized collaborators only. If you believe you should have access or have any questions, please contact the repository owner.
 
+
+<!---
 # Insurance Underwriting Software-as-a-Service
 
 A modern, efficient, and secure insurance underwriting platform built using React, Supabase, and PostgreSQL. This solution simplifies the underwriting process, enhances decision-making, and improves overall efficiency for insurance companies.
@@ -63,3 +65,4 @@ npm run dev
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
+-->
