@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { AdminAuthGuard } from "./components/auth/AdminAuthGuard";
+import { AuthGuard } from "./components/auth/AuthGuard";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import { CreateClaim } from "./components/claims/CreateClaim";
@@ -33,27 +34,29 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Index />} />
-            <Route path="/underwriting" element={<Index />} />
-            <Route path="/underwriting/new" element={<NewPolicy />} />
-            <Route path="/underwriting/renewal" element={<PolicyRenewal />} />
-            <Route path="/underwriting/inquiry" element={<PolicyInquiry />} />
-            <Route path="/underwriting/reports" element={<PolicyReports />} />
-            <Route path="/underwriting/payment" element={<Index />} />
-            <Route path="/claims" element={<Index />} />
-            <Route path="/claims/create" element={<CreateClaim />} />
-            <Route path="/claims/listing" element={<ClaimListing />} />
-            <Route path="/claims/status" element={<Index />} />
-            <Route path="/customers" element={<Index />} />
-            <Route path="/policies" element={<Index />} />
-            <Route path="/payments" element={<Index />} />
-            <Route path="/reports" element={<Index />} />
-            <Route path="/reports/gross-statement" element={<GrossStatement />} />
-            <Route path="/reports/commission-statement" element={<CommissionStatement />} />
-            <Route path="/company" element={<Company />} />
-            <Route path="/knowledge" element={<KnowledgeBase />} />
-            <Route path="/support" element={<Support />} />
-            <Route path="/settings" element={<Settings />} />
+            
+            {/* Protected Routes */}
+            <Route path="/" element={<AuthGuard><Index /></AuthGuard>} />
+            <Route path="/underwriting" element={<AuthGuard><Index /></AuthGuard>} />
+            <Route path="/underwriting/new" element={<AuthGuard><NewPolicy /></AuthGuard>} />
+            <Route path="/underwriting/renewal" element={<AuthGuard><PolicyRenewal /></AuthGuard>} />
+            <Route path="/underwriting/inquiry" element={<AuthGuard><PolicyInquiry /></AuthGuard>} />
+            <Route path="/underwriting/reports" element={<AuthGuard><PolicyReports /></AuthGuard>} />
+            <Route path="/underwriting/payment" element={<AuthGuard><Index /></AuthGuard>} />
+            <Route path="/claims" element={<AuthGuard><Index /></AuthGuard>} />
+            <Route path="/claims/create" element={<AuthGuard><CreateClaim /></AuthGuard>} />
+            <Route path="/claims/listing" element={<AuthGuard><ClaimListing /></AuthGuard>} />
+            <Route path="/claims/status" element={<AuthGuard><Index /></AuthGuard>} />
+            <Route path="/customers" element={<AuthGuard><Index /></AuthGuard>} />
+            <Route path="/policies" element={<AuthGuard><Index /></AuthGuard>} />
+            <Route path="/payments" element={<AuthGuard><Index /></AuthGuard>} />
+            <Route path="/reports" element={<AuthGuard><Index /></AuthGuard>} />
+            <Route path="/reports/gross-statement" element={<AuthGuard><GrossStatement /></AuthGuard>} />
+            <Route path="/reports/commission-statement" element={<AuthGuard><CommissionStatement /></AuthGuard>} />
+            <Route path="/company" element={<AuthGuard><Company /></AuthGuard>} />
+            <Route path="/knowledge" element={<AuthGuard><KnowledgeBase /></AuthGuard>} />
+            <Route path="/support" element={<AuthGuard><Support /></AuthGuard>} />
+            <Route path="/settings" element={<AuthGuard><Settings /></AuthGuard>} />
             
             {/* Admin Routes */}
             <Route
