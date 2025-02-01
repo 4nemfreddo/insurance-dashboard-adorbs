@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import { CreateClaim } from "./components/claims/CreateClaim";
 import { ClaimListing } from "./pages/claims/ClaimListing";
+import { ClaimStatus } from "./pages/claims/ClaimStatus";
 import { NewPolicy } from "./pages/underwriting/NewPolicy";
 import { PolicyRenewal } from "./pages/underwriting/PolicyRenewal";
 import { PolicyInquiry } from "./pages/underwriting/PolicyInquiry";
@@ -46,7 +47,7 @@ const App = () => (
             <Route path="/claims" element={<AuthGuard><Index /></AuthGuard>} />
             <Route path="/claims/create" element={<AuthGuard><CreateClaim /></AuthGuard>} />
             <Route path="/claims/listing" element={<AuthGuard><ClaimListing /></AuthGuard>} />
-            <Route path="/claims/status" element={<AuthGuard><Index /></AuthGuard>} />
+            <Route path="/claims/status" element={<AuthGuard><ClaimStatus /></AuthGuard>} />
             <Route path="/customers" element={<AuthGuard><Index /></AuthGuard>} />
             <Route path="/policies" element={<AuthGuard><Index /></AuthGuard>} />
             <Route path="/payments" element={<AuthGuard><Index /></AuthGuard>} />
