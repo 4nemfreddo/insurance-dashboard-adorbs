@@ -25,7 +25,19 @@ export const Navbar = () => {
     const loadProfile = async () => {
       try {
         const userProfile = await getCurrentProfile();
-        setProfile(userProfile);
+        if (userProfile) {
+          // Ensure the role is strictly typed
+          const typedProfile: Profile = {
+            ...userProfile,
+            role: userProfile.role as 'admin' | 'user', // Type assertion to ensure role is correct
+            id: userProfile.id.toString(), // Ensure id is a string
+            full_name: userProfile.full_name || null,
+            company_name: userProfile.company_name || null,
+            created_at: userProfile.created_at,
+            updated_at: userProfile.updated_at
+          };
+          setProfile(typedProfile);
+        }
       } catch (error) {
         console.error('Error loading profile:', error);
       }
