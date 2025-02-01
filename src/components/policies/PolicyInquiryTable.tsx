@@ -16,29 +16,38 @@ const mockPolicies = [
   {
     id: 1,
     policyNumber: "POL-2024-001",
-    holderName: "John Doe",
-    type: "Auto Insurance",
+    insurancePolicyNumber: "INS-001-2024",
+    clientName: "John Doe",
+    product: "Motor Vehicle Insurance",
+    coverFrom: "2024-01-01",
+    coverTo: "2024-12-31",
+    netPremium: "KES 25,000",
+    createdBy: "Jane Smith",
     status: "active",
-    expiryDate: "2024-12-31",
-    premium: "KES 25,000",
   },
   {
     id: 2,
     policyNumber: "POL-2024-002",
-    holderName: "Jane Smith",
-    type: "Health Insurance",
+    insurancePolicyNumber: "INS-002-2024",
+    clientName: "Jane Smith",
+    product: "Health Insurance",
+    coverFrom: "2024-02-01",
+    coverTo: "2025-01-31",
+    netPremium: "KES 50,000",
+    createdBy: "John Doe",
     status: "expiring",
-    expiryDate: "2024-03-15",
-    premium: "KES 50,000",
   },
   {
     id: 3,
     policyNumber: "POL-2024-003",
-    holderName: "Alice Johnson",
-    type: "Property Insurance",
+    insurancePolicyNumber: "INS-003-2024",
+    clientName: "Alice Johnson",
+    product: "Property Insurance",
+    coverFrom: "2024-03-01",
+    coverTo: "2025-02-28",
+    netPremium: "KES 100,000",
+    createdBy: "Bob Wilson",
     status: "expired",
-    expiryDate: "2024-01-31",
-    premium: "KES 100,000",
   },
 ];
 
@@ -56,18 +65,22 @@ export const PolicyInquiryTable = ({ searchQuery }: PolicyInquiryTableProps) => 
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead>Index</TableHead>
             <TableHead>Policy Number</TableHead>
-            <TableHead>Holder Name</TableHead>
-            <TableHead>Type</TableHead>
+            <TableHead>Insurance Policy Number</TableHead>
+            <TableHead>Client Name</TableHead>
+            <TableHead>Product</TableHead>
+            <TableHead>Cover From</TableHead>
+            <TableHead>Cover To</TableHead>
+            <TableHead>Net Premium</TableHead>
+            <TableHead>Created By</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead>Expiry Date</TableHead>
-            <TableHead>Premium</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredPolicies.map((policy) => (
-            <PolicyTableRow key={policy.id} policy={policy} />
+          {filteredPolicies.map((policy, index) => (
+            <PolicyTableRow key={policy.id} policy={policy} index={index + 1} />
           ))}
         </TableBody>
       </Table>
