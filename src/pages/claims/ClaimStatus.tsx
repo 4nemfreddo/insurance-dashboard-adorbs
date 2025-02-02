@@ -1,9 +1,9 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 import { useState } from "react";
 import { ClaimStatusTable } from "@/components/claims/ClaimStatusTable";
+import { ClaimSearch } from "@/components/claims/ClaimSearch";
+import { ClaimHeader } from "@/components/claims/ClaimHeader";
 
 export const ClaimStatus = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -13,28 +13,17 @@ export const ClaimStatus = () => {
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-semibold tracking-tight">Claim Status</h1>
-        </div>
+        <ClaimHeader title="Claim Status" />
 
         <Card>
           <CardHeader>
             <CardTitle>Track Claims</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center space-x-2 max-w-sm mb-6">
-              <div className="relative w-full">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder="Search claims..."
-                  className="pl-8"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-            </div>
-
+            <ClaimSearch 
+              searchQuery={searchQuery} 
+              setSearchQuery={setSearchQuery} 
+            />
             <ClaimStatusTable searchQuery={searchQuery} />
           </CardContent>
         </Card>
