@@ -17,24 +17,29 @@ export const signInWithEmail = async (email: string, password: string) => {
   console.log('Attempting to sign in with email:', email);
   
   try {
-    const { data: { user }, error } = await supabase.auth.signInWithPassword({
+    const { data: { user }, error: signInError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (error) {
-      console.error('Sign in error:', error.message);
+    if (signInError) {
+      console.error('Sign in error:', signInError.message);
+      console.error('Full error details:', signInError);
       toast({
         title: "Authentication Error",
-        description: error.message,
+        description: signInError.message,
         variant: "destructive",
       });
-      throw error;
+      throw signInError;
     }
 
     if (!user) {
-      throw new Error('No user returned after successful sign in');
+      const noUserError = new Error('No user returned after successful sign in');
+      console.error(noUserError);
+      throw noUserError;
     }
+
+    console.log('User signed in successfully:', user.id);
 
     // Fetch the user's profile to get their role
     const { data: profile, error: profileError } = await supabase
@@ -45,8 +50,11 @@ export const signInWithEmail = async (email: string, password: string) => {
 
     if (profileError) {
       console.error('Profile fetch error:', profileError.message);
+      console.error('Full profile error details:', profileError);
       throw profileError;
     }
+
+    console.log('Profile fetched successfully:', profile);
 
     toast({
       title: "Welcome back!",
