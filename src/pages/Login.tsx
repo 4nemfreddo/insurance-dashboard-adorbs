@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { signInWithEmail } from "@/lib/supabase";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Info } from "lucide-react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,16 +22,8 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      if (credentials.email === "admin@example" && credentials.password === "admin123") {
-        await signInWithEmail(credentials.email, credentials.password);
-        navigate("/");
-      } else {
-        toast({
-          title: "Invalid credentials",
-          description: "Please check your email and password",
-          variant: "destructive",
-        });
-      }
+      await signInWithEmail(credentials.email, credentials.password);
+      navigate("/");
     } catch (error) {
       console.error("Login error:", error);
     } finally {
@@ -44,6 +38,17 @@ const Login = () => {
           <CardTitle className="text-2xl text-center">Welcome Back</CardTitle>
         </CardHeader>
         <CardContent>
+          <Alert className="mb-6">
+            <Info className="h-4 w-4" />
+            <AlertDescription>
+              Development credentials:
+              <br />
+              Admin: admin@example.com / admin123
+              <br />
+              User: user@example.com / user123
+            </AlertDescription>
+          </Alert>
+          
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
               <label htmlFor="email" className="text-sm font-medium">
@@ -52,7 +57,7 @@ const Login = () => {
               <Input
                 id="email"
                 type="email"
-                placeholder="admin@example"
+                placeholder="Enter your email"
                 value={credentials.email}
                 onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
                 required
