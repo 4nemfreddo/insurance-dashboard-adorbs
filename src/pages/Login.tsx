@@ -85,7 +85,7 @@ const Login = () => {
                 </div>
               </div>
 
-              <Alert variant="default" className="bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
+              <Alert variant="info" className="bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
                 <Info className="h-4 w-4" />
                 <AlertDescription className="text-sm">
                   Development credentials:
