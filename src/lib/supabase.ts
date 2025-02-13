@@ -16,66 +16,35 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 export const signInWithEmail = async (email: string, password: string) => {
   console.log('Attempting to sign in with email:', email);
   
-  try {
-    const { data: { user }, error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (signInError) {
-      console.error('Sign in error:', signInError.message);
-      console.error('Full error details:', signInError);
-      toast({
-        title: "Authentication Error",
-        description: signInError.message,
-        variant: "destructive",
-      });
-      throw signInError;
-    }
-
-    if (!user) {
-      const noUserError = new Error('No user returned after successful sign in');
-      console.error(noUserError);
-      throw noUserError;
-    }
-
-    console.log('User signed in successfully:', user.id);
-
-    // Fetch the user's profile to get their role
-    const { data: profile, error: profileError } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', user.id)
-      .single();
-
-    if (profileError) {
-      console.error('Profile fetch error:', profileError.message);
-      console.error('Full profile error details:', profileError);
-      throw profileError;
-    }
-
-    console.log('Profile fetched successfully:', profile);
-
+  // Check for placeholder credentials
+  if (email === "admin@example" && password === "admin123") {
+    // Create a mock session
+    localStorage.setItem('user', JSON.stringify({
+      id: '1',
+      email: 'admin@example',
+      role: 'admin'
+    }));
+    
     toast({
       title: "Welcome back!",
       description: "You have successfully signed in.",
     });
-
-    return { user: { ...user, role: profile.role } };
-  } catch (error) {
-    console.error('Sign in process error:', error);
-    throw error;
+    
+    return { user: { id: '1', email: 'admin@example', role: 'admin' } };
   }
+
+  // If not using placeholder credentials, throw error
+  toast({
+    title: "Invalid credentials",
+    description: "Please use the provided admin credentials",
+    variant: "destructive",
+  });
+  throw new Error('Invalid credentials');
 };
 
 export const signOut = async () => {
   console.log('Attempting to sign out');
-  const { error } = await supabase.auth.signOut();
-  
-  if (error) {
-    console.error('Sign out error:', error.message);
-    throw error;
-  }
+  localStorage.removeItem('user');
   
   toast({
     title: "Signed out",
@@ -85,55 +54,27 @@ export const signOut = async () => {
 
 // Profile helpers
 export const getCurrentProfile = async () => {
-  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  const userStr = localStorage.getItem('user');
+  if (!userStr) return null;
   
-  if (authError) {
-    console.error('Auth error:', authError.message);
-    return null;
-  }
-
-  if (!user) {
-    return null;
-  }
-
-  const { data: profile, error: profileError } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', user.id)
-    .single();
-
-  if (profileError) {
-    console.error('Profile fetch error:', profileError.message);
-    return null;
-  }
-
-  return profile;
+  const user = JSON.parse(userStr);
+  return {
+    id: user.id,
+    full_name: 'Admin User',
+    company_name: 'Example Company',
+    role: 'admin',
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  };
 };
 
 export const updateProfile = async (userId: string, updates: Partial<Database['public']['Tables']['profiles']['Update']>) => {
-  const { data, error } = await supabase
-    .from('profiles')
-    .update(updates)
-    .eq('id', userId)
-    .select()
-    .single();
-
-  if (error) {
-    console.error('Profile update error:', error.message);
-    toast({
-      title: "Update failed",
-      description: error.message,
-      variant: "destructive",
-    });
-    throw error;
-  }
-
+  console.log('Updating profile for user:', userId, updates);
   toast({
     title: "Profile updated",
     description: "Your profile has been successfully updated.",
   });
-  
-  return data;
+  return getCurrentProfile();
 };
 
 // Admin check helper
